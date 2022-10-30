@@ -1,4 +1,4 @@
-module github.com/trayvox/go-eth-multicall
+module github.com/bezier-fi/go-eth-multicall
 
 go 1.16
 

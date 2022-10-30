@@ -6,13 +6,13 @@ import (
 	"math/big"
 	"strings"
 
+	MultiCall2 "github.com/bezier-fi/go-eth-multicall/contracts/MultiCall"
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
-	MultiCall2 "github.com/trayvox/go-eth-multicall/contracts/MultiCall"
 )
 
 type Call struct {
