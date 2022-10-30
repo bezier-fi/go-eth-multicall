@@ -3,6 +3,9 @@ package go_eth_multicall
 import (
 	"context"
 	"encoding/json"
+	"math/big"
+	"strings"
+
 	"github.com/ethereum/go-ethereum"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -10,8 +13,6 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	MultiCall2 "github.com/trayvox/go-eth-multicall/contracts/MultiCall"
-	"math/big"
-	"strings"
 )
 
 type Call struct {
@@ -27,6 +28,11 @@ type CallResponse struct {
 
 func (call Call) GetMultiCall() MultiCall2.Multicall2Call {
 	return MultiCall2.Multicall2Call{Target: call.Target, CallData: call.CallData}
+}
+
+var contracts = map[int64]string{
+	1:   "0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696",
+	137: "0xa1B2b503959aedD81512C37e9dce48164ec6a94d",
 }
 
 func randomSigner() *bind.TransactOpts {
@@ -66,7 +72,12 @@ func New(rawurl string) EthMultiCaller {
 		panic(err)
 	}
 
-	contractAddress := common.HexToAddress("0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696")
+	chainID, err := client.ChainID(context.Background())
+	if err != nil {
+		panic(err)
+	}
+
+	contractAddress := common.HexToAddress(contracts[chainID.Int64()])
 
 	return EthMultiCaller{
 		Signer:          randomSigner(),
