@@ -31,8 +31,9 @@ func (call Call) GetMultiCall() MultiCall2.Multicall2Call {
 }
 
 var contracts = map[int64]string{
-	1:   "0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696",
-	137: "0xed386Fe855C1EFf2f843B910923Dd8846E45C5A4",
+	1:     "0x5BA1e12693Dc8F9c48aAD8770482f4739bEeD696",
+	137:   "0xed386Fe855C1EFf2f843B910923Dd8846E45C5A4",
+	43114: "0x29b6603d17b9d8f021ecb8845b6fd06e1adf89de",
 }
 
 func randomSigner() *bind.TransactOpts {
