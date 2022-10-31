@@ -88,7 +88,7 @@ func New(rawurl string) EthMultiCaller {
 	}
 }
 
-func (caller *EthMultiCaller) Execute(calls []Call) map[string]CallResponse {
+func (caller *EthMultiCaller) Execute(calls []Call, blockNumber *big.Int) map[string]CallResponse {
 	var responses []CallResponse
 
 	var multiCalls = make([]MultiCall2.Multicall2Call, 0, len(calls))
@@ -105,7 +105,7 @@ func (caller *EthMultiCaller) Execute(calls []Call) map[string]CallResponse {
 	}
 
 	// Perform multicall
-	resp, err := caller.Client.CallContract(context.Background(), ethereum.CallMsg{To: &caller.ContractAddress, Data: callData}, nil)
+	resp, err := caller.Client.CallContract(context.Background(), ethereum.CallMsg{To: &caller.ContractAddress, Data: callData}, blockNumber)
 	if err != nil {
 		panic(err)
 	}
